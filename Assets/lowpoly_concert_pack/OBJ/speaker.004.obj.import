@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/speaker.004.obj-b5114716797bc11636020e253885538e.mesh"
+
+[deps]
+
+files=[ "res://.import/speaker.004.obj-b5114716797bc11636020e253885538e.mesh" ]
+
+source_file="res://Assets/lowpoly_concert_pack/OBJ/speaker.004.obj"
+dest_files=[ "res://.import/speaker.004.obj-b5114716797bc11636020e253885538e.mesh", "res://.import/speaker.004.obj-b5114716797bc11636020e253885538e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

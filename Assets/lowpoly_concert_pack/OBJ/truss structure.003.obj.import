@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/truss structure.003.obj-27a529e3e12c29eea5b07abee3c264aa.mesh"
+
+[deps]
+
+files=[ "res://.import/truss structure.003.obj-27a529e3e12c29eea5b07abee3c264aa.mesh" ]
+
+source_file="res://Assets/lowpoly_concert_pack/OBJ/truss structure.003.obj"
+dest_files=[ "res://.import/truss structure.003.obj-27a529e3e12c29eea5b07abee3c264aa.mesh", "res://.import/truss structure.003.obj-27a529e3e12c29eea5b07abee3c264aa.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286

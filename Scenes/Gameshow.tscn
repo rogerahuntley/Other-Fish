@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Assets/lowpoly_concert_pack/OBJ/stage.006.obj" type="ArrayMesh" id=1]
+
+[node name="Gameshow" type="Spatial"]
+
+[node name="stage006" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 73.6598, 93.9586, 163.632 )
+mesh = ExtResource( 1 )
+material/0 = null

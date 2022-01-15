@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/spotlight.005.obj-57ebbfe0c6be53c0fd8b84cdbd77431e.mesh"
+
+[deps]
+
+files=[ "res://.import/spotlight.005.obj-57ebbfe0c6be53c0fd8b84cdbd77431e.mesh" ]
+
+source_file="res://Assets/lowpoly_concert_pack/OBJ/spotlight.005.obj"
+dest_files=[ "res://.import/spotlight.005.obj-57ebbfe0c6be53c0fd8b84cdbd77431e.mesh", "res://.import/spotlight.005.obj-57ebbfe0c6be53c0fd8b84cdbd77431e.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286
