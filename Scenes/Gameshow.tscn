@@ -1,22 +1,28 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Assets/Pixel/heart.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Pixel/podium.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Pixel/stage.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Pixel/curtain.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Pixel/gator.png" type="Texture" id=5]
-[ext_resource path="res://Assets/Pixel/octopus.png" type="Texture" id=6]
-[ext_resource path="res://Assets/Pixel/fish.png" type="Texture" id=7]
-[ext_resource path="res://Assets/Pixel/seahorse.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Characters/Gator.tres" type="Resource" id=5]
+[ext_resource path="res://Assets/Pixel/seahorse.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Characters/Octopus.tres" type="Resource" id=7]
+[ext_resource path="res://Assets/Characters/Fish.tres" type="Resource" id=8]
 [ext_resource path="res://Assets/Pixel/shadow.png" type="Texture" id=9]
 [ext_resource path="res://Scenes/MinigameHandler.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/Character.gd" type="Script" id=11]
-[ext_resource path="res://Scripts/CharacterHandler.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/DialogHandler.gd" type="Script" id=12]
+[ext_resource path="res://Assets/Characters/Seahorse.tres" type="Resource" id=13]
+[ext_resource path="res://Assets/WebFonts/NameFont.tres" type="DynamicFont" id=14]
+[ext_resource path="res://Assets/WebFonts/ComicNeue-Regular.woff" type="DynamicFontData" id=15]
+[ext_resource path="res://Assets/WebFonts/ComicNeueAngular-Italic.woff" type="DynamicFontData" id=16]
+[ext_resource path="res://Assets/WebFonts/ComicNeueAngular-Bold.woff" type="DynamicFontData" id=17]
+[ext_resource path="res://Assets/WebFonts/ComicNeueAngular-BoldItalic.woff" type="DynamicFontData" id=18]
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends Camera
 
-var wiggle_speed = 2;
+var wiggle_speed = 0;
 var wiggle_amt = .01;
 var rot = 5;
 
@@ -68,115 +74,250 @@ func _process(delta):
 	pass
 "
 
-[node name="Gameshow" type="Spatial"]
+[sub_resource type="StreamTexture" id=3]
+flags = 7
+load_path = "res://.import/gator.png-d297fcffb1629eeed693f4950ea10254.s3tc.stex"
 
-[node name="Camera" type="Camera" parent="."]
+[sub_resource type="StreamTexture" id=4]
+flags = 3
+load_path = "res://.import/octopus.png-cb86631700a9737130a891d8217807cb.s3tc.stex"
+
+[sub_resource type="StreamTexture" id=5]
+flags = 3
+load_path = "res://.import/fish.png-89fc1c4f0a54506038a9e5a59c7f351e.s3tc.stex"
+
+[sub_resource type="StreamTexture" id=6]
+flags = 3
+load_path = "res://.import/seahorse.png-26eed7d6423a72cad34c1efb8d9b2c0e.s3tc.stex"
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 18 )
+
+[sub_resource type="DynamicFont" id=8]
+font_data = ExtResource( 16 )
+
+[sub_resource type="DynamicFont" id=9]
+font_data = ExtResource( 17 )
+
+[sub_resource type="DynamicFont" id=10]
+font_data = ExtResource( 15 )
+
+[sub_resource type="GDScript" id=11]
+script/source = "extends TextureRect
+
+var wiggle_speed = 2;
+var wiggle_amt = 2;
+var rot = 3;
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	rot += delta
+	rect_rotation = sin(rot * wiggle_speed) * wiggle_amt;
+	pass
+"
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+margin_right = 800.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 800, 600 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Gameshow" type="Spatial" parent="ViewportContainer/Viewport"]
+
+[node name="Camera" type="Camera" parent="ViewportContainer/Viewport/Gameshow"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17584, 4.26266, 6.03815 )
 script = SubResource( 2 )
 
-[node name="Spatial" type="Spatial" parent="."]
+[node name="Spatial" type="Spatial" parent="ViewportContainer/Viewport/Gameshow"]
 transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
 
-[node name="Stage" type="Sprite3D" parent="Spatial"]
+[node name="Stage" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial"]
 transform = Transform( 150, 0, 0, 0, -6.55671e-06, 100, 0, -150, -4.37114e-06, 15.2242, 0.280499, -0.628947 )
 alpha_cut = 2
 texture = ExtResource( 3 )
 
-[node name="Curtain" type="Sprite3D" parent="Spatial"]
+[node name="Curtain" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial"]
 transform = Transform( 150, 0, 0, 0, 150, 0, 0, 0, 150, -1.96913, 46.6518, -57.0059 )
 alpha_cut = 2
 texture = ExtResource( 4 )
 
-[node name="Heart" type="Sprite3D" parent="Spatial"]
+[node name="Heart" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial"]
 transform = Transform( 75, 0, 0, 0, 75, 0, 0, 0, 75, 5.97116, 46.9652, -50.1604 )
 alpha_cut = 2
 texture = ExtResource( 1 )
 script = SubResource( 1 )
 
-[node name="Node" type="Spatial" parent="Spatial"]
+[node name="Node" type="Spatial" parent="ViewportContainer/Viewport/Gameshow/Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.1666 )
 
-[node name="Podium" type="Sprite3D" parent="Spatial/Node"]
+[node name="Podium" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Node"]
 transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, -41.0717, 19.086, -36.2096 )
 alpha_cut = 2
 texture = ExtResource( 2 )
 
-[node name="Podium2" type="Sprite3D" parent="Spatial/Node"]
+[node name="Podium2" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Node"]
 transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 39.4665, 19.086, -36.2115 )
 alpha_cut = 2
 texture = ExtResource( 2 )
 
-[node name="Podium3" type="Sprite3D" parent="Spatial/Node"]
+[node name="Podium3" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Node"]
 transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 64.2823, 19.086, -36.2005 )
 alpha_cut = 2
 texture = ExtResource( 2 )
 
-[node name="Podium4" type="Sprite3D" parent="Spatial/Node"]
+[node name="Podium4" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Node"]
 transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 87.7944, 19.086, -36.2257 )
 alpha_cut = 2
 texture = ExtResource( 2 )
 
-[node name="Characters" type="Spatial" parent="Spatial"]
+[node name="Characters" type="Spatial" parent="ViewportContainer/Viewport/Gameshow/Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.1281, 0.155919 )
 
-[node name="Spatial" type="Spatial" parent="Spatial/Characters"]
+[node name="Spatial" type="Spatial" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters"]
 
-[node name="Gator" type="Sprite3D" parent="Spatial/Characters/Spatial"]
+[node name="Gator" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial"]
 transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, -49.613, 19.086, -36.2096 )
+generate_lightmap = false
 flip_h = true
 alpha_cut = 2
-texture = ExtResource( 5 )
+texture = SubResource( 3 )
 script = ExtResource( 11 )
+chara = ExtResource( 5 )
 
-[node name="Gatorsh" type="Sprite3D" parent="Spatial/Characters/Spatial"]
+[node name="Gatorsh" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial"]
 transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 50, -52.7434, 27.7023, -40.2531 )
 alpha_cut = 2
 texture = ExtResource( 9 )
 
-[node name="Spatial2" type="Spatial" parent="Spatial/Characters"]
+[node name="Spatial2" type="Spatial" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36.8144, 9.53674e-06, -0.00190735 )
 
-[node name="Octopus" type="Sprite3D" parent="Spatial/Characters/Spatial2"]
+[node name="Octopus" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial2"]
 transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 7.19065, 19.086, -36.2096 )
+cast_shadow = 0
+generate_lightmap = false
 alpha_cut = 2
-texture = ExtResource( 6 )
+texture = SubResource( 4 )
 script = ExtResource( 11 )
+chara = ExtResource( 7 )
 
-[node name="Octopussh" type="Sprite3D" parent="Spatial/Characters/Spatial2"]
+[node name="Octopussh" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial2"]
 transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 50, 8.11171, 27.7023, -40.2531 )
 alpha_cut = 2
 texture = ExtResource( 9 )
 
-[node name="Spatial3" type="Spatial" parent="Spatial/Characters"]
+[node name="Spatial3" type="Spatial" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 41.4876, 9.53674e-06, -0.00190735 )
 
-[node name="fish" type="Sprite3D" parent="Spatial/Characters/Spatial3"]
+[node name="fish" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial3"]
 transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 32.4172, 19.086, -36.1986 )
+cast_shadow = 0
+generate_lightmap = false
 alpha_cut = 2
-texture = ExtResource( 7 )
+texture = SubResource( 5 )
 script = ExtResource( 11 )
+chara = ExtResource( 8 )
 
-[node name="fishsh" type="Sprite3D" parent="Spatial/Characters/Spatial3"]
+[node name="fishsh" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial3"]
 transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 50, 32.2916, 27.7023, -40.2421 )
 alpha_cut = 2
 texture = ExtResource( 9 )
 
-[node name="Spatial4" type="Spatial" parent="Spatial/Characters"]
+[node name="Spatial4" type="Spatial" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 46.949, 9.53674e-06, -0.00190735 )
 
-[node name="seahorse" type="Sprite3D" parent="Spatial/Characters/Spatial4"]
+[node name="seahorse" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial4"]
 transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 52.7903, 19.0859, -36.2238 )
-flip_h = true
+cast_shadow = 0
+generate_lightmap = false
 alpha_cut = 2
-texture = ExtResource( 8 )
+texture = SubResource( 6 )
 script = ExtResource( 11 )
+chara = ExtResource( 13 )
 
-[node name="seahorsesh" type="Sprite3D" parent="Spatial/Characters/Spatial4"]
+[node name="seahorsesh" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial4"]
 transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 50, 56.4003, 27.7023, -40.2673 )
 alpha_cut = 2
 texture = ExtResource( 9 )
 
 [node name="MinigameHandler" parent="." instance=ExtResource( 10 )]
 
-[node name="CharacterHandler" type="Node" parent="."]
+[node name="DialogHandler" type="Control" parent="."]
+light_mask = 0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -400.0
+margin_top = -103.0
+margin_right = 400.0
 script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Text" type="RichTextLabel" parent="DialogHandler"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -654.0
+margin_top = -26.5
+margin_bottom = 51.5
+custom_fonts/bold_italics_font = SubResource( 7 )
+custom_fonts/italics_font = SubResource( 8 )
+custom_fonts/bold_font = SubResource( 9 )
+custom_fonts/normal_font = SubResource( 10 )
+text = "when I was a youngin i ate too many pickles for breakfast"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="DialogHandler"]
+margin_left = 154.0
+margin_top = 5.0
+margin_right = 216.0
+margin_bottom = 19.0
+custom_fonts/font = ExtResource( 14 )
+text = "Dorse the Seahorse"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="DialogHandler"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -15.0
+margin_top = -91.5
+margin_right = 138.0
+margin_bottom = 36.5
+rect_scale = Vector2( 1.3, 1.3 )
+texture = ExtResource( 6 )
+flip_h = true
+script = SubResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

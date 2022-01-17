@@ -1,3 +1,4 @@
 extends Node
 
-signal startMinigame()
+signal start_minigame()
+signal character_talking(character)

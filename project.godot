@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "CharacterData",
+"language": "GDScript",
+"path": "res://Assets/Characters/CharacterData.gd"
+}, {
 "base": "Sprite3D",
 "class": "CharacterSprite",
 "language": "GDScript",
 "path": "res://Scripts/Character.gd"
 } ]
 _global_script_class_icons={
+"CharacterData": "",
 "CharacterSprite": ""
 }
 
@@ -31,8 +37,12 @@ Globals="*res://Scripts/Globals.gd"
 [display]
 
 window/size/width=800
-window/stretch/mode="viewport"
+window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray(  )
 
 [global]
 
