@@ -8,11 +8,41 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Sprite3D",
+"class": "CharacterSprite",
+"language": "GDScript",
+"path": "res://Scripts/Character.gd"
+} ]
+_global_script_class_icons={
+"CharacterSprite": ""
+}
+
 [application]
 
 config/name="OtherFish"
 run/main_scene="res://Scenes/MainMenu.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Globals="*res://Scripts/Globals.gd"
+
+[display]
+
+window/size/width=800
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
+[global]
+
+resiz=false
+
+[importer_defaults]
+
+texture={
+"flags/filter": false
+}
 
 [physics]
 

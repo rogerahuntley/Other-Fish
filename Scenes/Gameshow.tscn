@@ -1,10 +1,182 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://Assets/lowpoly_concert_pack/OBJ/stage.006.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Assets/Pixel/heart.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Pixel/podium.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Pixel/stage.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Pixel/curtain.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Pixel/gator.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Pixel/octopus.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Pixel/fish.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Pixel/seahorse.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Pixel/shadow.png" type="Texture" id=9]
+[ext_resource path="res://Scenes/MinigameHandler.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scripts/Character.gd" type="Script" id=11]
+[ext_resource path="res://Scripts/CharacterHandler.gd" type="Script" id=12]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Camera
+
+var wiggle_speed = 2;
+var wiggle_amt = .01;
+var rot = 5;
+
+var zoom_speed = 2;
+var zoom_amt = .1;
+var zoom = 1;
+
+var targetZ = translation.z
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	camera_wigg(delta);
+	pass
+
+func camera_wigg(delta):
+	rot += delta;
+	zoom += delta;
+	rotation.z = sin(rot * wiggle_speed) * wiggle_amt;
+	translation.z = targetZ + sin(zoom * zoom_speed) * zoom_amt;
+	pass
+"
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Sprite3D
+
+var wiggle_speed = 2;
+var wiggle_amt = .2;
+var rot = 0;
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	rot += delta
+	rotation.z = sin(rot * wiggle_speed) * wiggle_amt;
+	pass
+"
 
 [node name="Gameshow" type="Spatial"]
 
-[node name="stage006" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 73.6598, 93.9586, 163.632 )
-mesh = ExtResource( 1 )
-material/0 = null
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.17584, 4.26266, 6.03815 )
+script = SubResource( 2 )
+
+[node name="Spatial" type="Spatial" parent="."]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
+
+[node name="Stage" type="Sprite3D" parent="Spatial"]
+transform = Transform( 150, 0, 0, 0, -6.55671e-06, 100, 0, -150, -4.37114e-06, 15.2242, 0.280499, -0.628947 )
+alpha_cut = 2
+texture = ExtResource( 3 )
+
+[node name="Curtain" type="Sprite3D" parent="Spatial"]
+transform = Transform( 150, 0, 0, 0, 150, 0, 0, 0, 150, -1.96913, 46.6518, -57.0059 )
+alpha_cut = 2
+texture = ExtResource( 4 )
+
+[node name="Heart" type="Sprite3D" parent="Spatial"]
+transform = Transform( 75, 0, 0, 0, 75, 0, 0, 0, 75, 5.97116, 46.9652, -50.1604 )
+alpha_cut = 2
+texture = ExtResource( 1 )
+script = SubResource( 1 )
+
+[node name="Node" type="Spatial" parent="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.1666 )
+
+[node name="Podium" type="Sprite3D" parent="Spatial/Node"]
+transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, -41.0717, 19.086, -36.2096 )
+alpha_cut = 2
+texture = ExtResource( 2 )
+
+[node name="Podium2" type="Sprite3D" parent="Spatial/Node"]
+transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 39.4665, 19.086, -36.2115 )
+alpha_cut = 2
+texture = ExtResource( 2 )
+
+[node name="Podium3" type="Sprite3D" parent="Spatial/Node"]
+transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 64.2823, 19.086, -36.2005 )
+alpha_cut = 2
+texture = ExtResource( 2 )
+
+[node name="Podium4" type="Sprite3D" parent="Spatial/Node"]
+transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 87.7944, 19.086, -36.2257 )
+alpha_cut = 2
+texture = ExtResource( 2 )
+
+[node name="Characters" type="Spatial" parent="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.1281, 0.155919 )
+
+[node name="Spatial" type="Spatial" parent="Spatial/Characters"]
+
+[node name="Gator" type="Sprite3D" parent="Spatial/Characters/Spatial"]
+transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, -49.613, 19.086, -36.2096 )
+flip_h = true
+alpha_cut = 2
+texture = ExtResource( 5 )
+script = ExtResource( 11 )
+
+[node name="Gatorsh" type="Sprite3D" parent="Spatial/Characters/Spatial"]
+transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 50, -52.7434, 27.7023, -40.2531 )
+alpha_cut = 2
+texture = ExtResource( 9 )
+
+[node name="Spatial2" type="Spatial" parent="Spatial/Characters"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36.8144, 9.53674e-06, -0.00190735 )
+
+[node name="Octopus" type="Sprite3D" parent="Spatial/Characters/Spatial2"]
+transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 7.19065, 19.086, -36.2096 )
+alpha_cut = 2
+texture = ExtResource( 6 )
+script = ExtResource( 11 )
+
+[node name="Octopussh" type="Sprite3D" parent="Spatial/Characters/Spatial2"]
+transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 50, 8.11171, 27.7023, -40.2531 )
+alpha_cut = 2
+texture = ExtResource( 9 )
+
+[node name="Spatial3" type="Spatial" parent="Spatial/Characters"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 41.4876, 9.53674e-06, -0.00190735 )
+
+[node name="fish" type="Sprite3D" parent="Spatial/Characters/Spatial3"]
+transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 32.4172, 19.086, -36.1986 )
+alpha_cut = 2
+texture = ExtResource( 7 )
+script = ExtResource( 11 )
+
+[node name="fishsh" type="Sprite3D" parent="Spatial/Characters/Spatial3"]
+transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 50, 32.2916, 27.7023, -40.2421 )
+alpha_cut = 2
+texture = ExtResource( 9 )
+
+[node name="Spatial4" type="Spatial" parent="Spatial/Characters"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 46.949, 9.53674e-06, -0.00190735 )
+
+[node name="seahorse" type="Sprite3D" parent="Spatial/Characters/Spatial4"]
+transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 52.7903, 19.0859, -36.2238 )
+flip_h = true
+alpha_cut = 2
+texture = ExtResource( 8 )
+script = ExtResource( 11 )
+
+[node name="seahorsesh" type="Sprite3D" parent="Spatial/Characters/Spatial4"]
+transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 50, 56.4003, 27.7023, -40.2673 )
+alpha_cut = 2
+texture = ExtResource( 9 )
+
+[node name="MinigameHandler" parent="." instance=ExtResource( 10 )]
+
+[node name="CharacterHandler" type="Node" parent="."]
+script = ExtResource( 12 )
