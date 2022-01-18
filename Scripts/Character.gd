@@ -12,10 +12,8 @@ var pos = 1;
 var talking = false;
 
 func _ready():
-	var global = get_node("/root/Globals");
-	global.connect("character_talking", self, "talking_check");
+	Globals.connect("character_talking", self, "talking_check");
 	start_pos = translation.y
-	global.emit_signal("character_talking", chara)
 
 func _process(delta):
 	if talking:
@@ -27,7 +25,7 @@ func talking_bob(delta):
 	translation.y = start_pos + sin(pos * bob_speed) * bob_amt;
 	pass
 
-func talking_check(character):
+func talking_check(character, _t):
 	print(character)
 	if character == chara:
 		talking = true

@@ -1,0 +1,46 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Resources/DialogBit.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+dialog = "!gator
+welcome to the game show everybody
+
+!octopus
+oof
+
+!seahorse
+is that it? no music? no fade-in? no fancy animations?
+
+!gator
+not in the budget
+
+!fish
+*fish noises*
+
+!gator
+nice! not appropriate though
+
+!octopus
+i am channelling my inner main character right now
+use the arrow keys and Z to play minigames
+
+!fish
+*fish noises*
+
+!seahorse
+that's a good question. how *DID* we get here?
+
+!gator
+don't worry about it :3
+we're playing minigames and whoever wins gets to be my boyfriend
+
+!fish
+*fish noises*
+
+!gator
+this is the 21st century my friend and anything is possible
+now lets play some minigames
+$MINIGAME
+"
