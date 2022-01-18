@@ -26,7 +26,6 @@ func talking_bob(delta):
 	pass
 
 func talking_check(character, _t):
-	print(character)
 	if character == chara:
 		talking = true
 	else:

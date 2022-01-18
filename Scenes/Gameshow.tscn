@@ -328,8 +328,6 @@ transform = Transform( 30, 0, 0, 0, 30, 0, 0, 0, 30, 56.4003, 85.3384, -39.99 )
 alpha_cut = 2
 texture = ExtResource( 21 )
 
-[node name="MinigameHandler" parent="." instance=ExtResource( 10 )]
-
 [node name="DialogHandler" type="Control" parent="."]
 light_mask = 0
 anchor_left = 0.5
@@ -395,3 +393,5 @@ script = SubResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="MinigameHandler" parent="." instance=ExtResource( 10 )]

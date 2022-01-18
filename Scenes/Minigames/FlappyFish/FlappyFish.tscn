@@ -1,5 +1,137 @@
-[gd_scene format=2]
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/Minigames/FlappyFish/FlappyFish.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Pixel/FlappyFish/octopus.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Pixel/FlappyFish/obstacle.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Minigames/FlappyFish/Octopus.gd" type="Script" id=4]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+export (float) var speed = 150
+
+func _process(delta):
+	position.x -= delta * speed
+"
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 32.5, 64 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 31.5, 61 )
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 9.5
+height = 69.0
 
 [node name="Minigame" type="Control"]
-margin_right = 650.0
-margin_bottom = 450.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -325.0
+margin_top = -225.0
+margin_right = 325.0
+margin_bottom = 225.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Obstacles" type="Node2D" parent="."]
+position = Vector2( 22, -214 )
+script = SubResource( 1 )
+
+[node name="Obstacle" type="Sprite" parent="Obstacles"]
+position = Vector2( 243, 401 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+
+[node name="StaticBody2D" type="Area2D" parent="Obstacles/Obstacle"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle/StaticBody2D"]
+position = Vector2( -0.75, 0.5 )
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 4 )
+
+[node name="Obstacle2" type="Sprite" parent="Obstacles"]
+position = Vector2( 466, 51 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+
+[node name="StaticBody2D" type="Area2D" parent="Obstacles/Obstacle2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle2/StaticBody2D"]
+position = Vector2( -0.5, 0 )
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 4 )
+
+[node name="Obstacle3" type="Sprite" parent="Obstacles"]
+position = Vector2( 618, 419 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+
+[node name="StaticBody2D" type="Area2D" parent="Obstacles/Obstacle3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle3/StaticBody2D"]
+position = Vector2( -0.5, 0 )
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 4 )
+
+[node name="Obstacle4" type="Sprite" parent="Obstacles"]
+position = Vector2( 848, 418 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+
+[node name="StaticBody2D" type="Area2D" parent="Obstacles/Obstacle4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle4/StaticBody2D"]
+position = Vector2( 0.75, -0.5 )
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 5 )
+
+[node name="Obstacle5" type="Sprite" parent="Obstacles"]
+position = Vector2( 847, 341 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+
+[node name="StaticBody2D" type="Area2D" parent="Obstacles/Obstacle5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle5/StaticBody2D"]
+position = Vector2( -0.5, 0 )
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 4 )
+
+[node name="Obstacle6" type="Sprite" parent="Obstacles"]
+position = Vector2( -209, 182 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+offset = Vector2( 696.5, -78.5 )
+
+[node name="StaticBody2D" type="Area2D" parent="Obstacles/Obstacle6"]
+position = Vector2( 696.5, -77.5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle6/StaticBody2D"]
+position = Vector2( -0.5, 0 )
+scale = Vector2( 0.5, 0.5 )
+shape = SubResource( 4 )
+
+[node name="Octopus" type="Sprite" parent="."]
+position = Vector2( 95, 197 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+script = ExtResource( 4 )
+
+[node name="RigidBody2D" type="KinematicBody2D" parent="Octopus"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Octopus/RigidBody2D"]
+position = Vector2( 2.5, -1 )
+rotation = 1.5708
+shape = SubResource( 3 )

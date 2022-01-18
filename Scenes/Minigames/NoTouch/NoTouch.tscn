@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scripts/Minigames/NoTouch/NoTouch.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Pixel/controls.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Pixel/octopus.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Pixel/action.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Pixel/NoTouch/z.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Pixel/NoTouch/a.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Pixel/NoTouch/s.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Pixel/NoTouch/d.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Pixel/NoTouch/w.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Pixel/NoTouch/warning.png" type="Texture" id=10]
+
+[node name="Minigame" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -325.0
+margin_top = -225.0
+margin_right = 325.0
+margin_bottom = 225.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Action" type="Sprite" parent="."]
+position = Vector2( 534, 211 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 4 )
+
+[node name="Z" type="Sprite" parent="Action"]
+visible = false
+position = Vector2( -0.586548, -6.84318 )
+texture = ExtResource( 5 )
+
+[node name="Controls" type="Sprite" parent="."]
+position = Vector2( 119, 210 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 2 )
+
+[node name="A" type="Sprite" parent="Controls"]
+visible = false
+position = Vector2( -18.8852, -0.786877 )
+texture = ExtResource( 6 )
+
+[node name="D" type="Sprite" parent="Controls"]
+visible = false
+position = Vector2( 15.2131, -1.04918 )
+texture = ExtResource( 8 )
+
+[node name="S" type="Sprite" parent="Controls"]
+visible = false
+position = Vector2( -1.83607, -1.04918 )
+texture = ExtResource( 7 )
+
+[node name="W" type="Sprite" parent="Controls"]
+visible = false
+position = Vector2( -1.83607, -16 )
+texture = ExtResource( 9 )
+
+[node name="Octopus" type="Sprite" parent="."]
+position = Vector2( 321, 206 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+
+[node name="Warning" type="Sprite" parent="."]
+position = Vector2( 326, 349 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 10 )

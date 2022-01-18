@@ -12,7 +12,7 @@ var line_num = 0
 
 func _ready():
 	open_dialog(first_dialog)
-	Globals.connect("minigame_finished", self, "next");
+	Globals.connect("exit_minigame", self, "next");
 	next()
 
 func _input(event):
@@ -21,7 +21,7 @@ func _input(event):
 
 func open_dialog(dialog):
 	dialog_data = dialog.dialog.split("\n")
-	next_dialog = first_dialog.next_bit
+	next_dialog = dialog.next_bit
 	line_num = 0
 
 func get_next_line():
@@ -32,7 +32,7 @@ func get_next_line():
 		# check if valid index
 		if dialog_data.size() == line_num:
 			var dialog = get_next_dialog();
-			if dialog == -1:
+			if dialog == null:
 				return "%END"
 			else:
 				open_dialog(dialog)
@@ -47,10 +47,9 @@ func get_next_dialog():
 	if next_dialog != null:
 		return next_dialog
 	else:
-		return -1;
+		return null;
 
 func end_game():
-	print("game done!!!!! ran out of script!!!!")
 	get_tree().quit();
 
 func next():
@@ -64,7 +63,7 @@ func next():
 		Globals.emit_signal("launch_minigame");
 	elif line.begins_with("%"):
 		get_tree().quit();
-	
+		
 	# not a new signal, so send dialog
 	else:
 		Globals.emit_signal("character_talking", current_char, line)

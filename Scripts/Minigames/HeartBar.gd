@@ -16,10 +16,13 @@ func start(time = 5):
 	pass
 
 func stop_tween():
+	tween.stop_all();
+	Globals.emit_signal("bar_finished");
 	pass
 
 func finish():
 	Globals.emit_signal("bar_finished");
+	Globals.emit_signal("minigame_won");
 	left.visible = false;
 	right.visible = false;
 	heart.rot = 0;

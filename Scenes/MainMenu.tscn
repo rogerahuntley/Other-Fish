@@ -99,7 +99,7 @@ expand = true
 stretch_mode = 5
 script = SubResource( 3 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="Label" type="Label" parent="."]
