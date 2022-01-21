@@ -12,9 +12,6 @@ const BANDAIDTIME = .3
 func _init():
 	timer_out_signal = "minigame_failed"
 
-func _start():
-	move_to(pos);
-
 func _input(event):
 	if active:
 		if event.is_action_pressed("ui_accept"):

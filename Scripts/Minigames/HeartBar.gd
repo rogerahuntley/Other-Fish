@@ -24,7 +24,6 @@ func start():
 func minigame_over():
 	stop_tween()
 	Globals.emit_signal("bar_finished");
-	
 
 func stop_tween():
 	tween.stop_all();

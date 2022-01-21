@@ -129,7 +129,7 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 12 )
 
 [node name="Move" type="Node2D" parent="."]
-position = Vector2( 105, 71 )
+position = Vector2( 257, 71 )
 
 [node name="Bandaid" type="Sprite" parent="Move"]
 scale = Vector2( 3, 3 )
