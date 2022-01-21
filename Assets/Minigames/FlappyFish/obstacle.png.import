@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/obstacle.png-0f8a49248307de907c59aab081d7572d.stex"
+path="res://.import/obstacle.png-0b53fe211c1da4a94b62be0ce7a27321.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pixel/FlappyFish/obstacle.png"
-dest_files=[ "res://.import/obstacle.png-0f8a49248307de907c59aab081d7572d.stex" ]
+source_file="res://Assets/Minigames/FlappyFish/obstacle.png"
+dest_files=[ "res://.import/obstacle.png-0b53fe211c1da4a94b62be0ce7a27321.stex" ]
 
 [params]
 

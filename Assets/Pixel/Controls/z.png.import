@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/warning.png-3b63017d22a50cc5aa8a3bc1ff0de7b2.stex"
+path="res://.import/z.png-0701a07b4ee417be4265909c3a457239.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pixel/NoTouch/warning.png"
-dest_files=[ "res://.import/warning.png-3b63017d22a50cc5aa8a3bc1ff0de7b2.stex" ]
+source_file="res://Assets/Pixel/Controls/z.png"
+dest_files=[ "res://.import/z.png-0701a07b4ee417be4265909c3a457239.stex" ]
 
 [params]
 

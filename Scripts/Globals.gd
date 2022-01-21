@@ -7,16 +7,21 @@ signal minigame_won()
 signal exit_minigame()
 signal bar_finished()
 signal minigame_closed()
+signal no_hearts()
+signal bar_stop()
 signal character_talking(character, sentence)
 
 var in_minigame = false;
+var bar_running = false;
 
 func _ready():
 	self.connect("launch_minigame", self, "in_mini");
-	self.connect("exit_minigame", self, "out_mini");
-	self.connect("start_minigame", self, "print_start");
-	self.connect("minigame_won", self, "print_won");
-	self.connect("minigame_failed", self, "print_failed");
+	self.connect("exit_minigame", self, "exit");
+	self.connect("start_minigame", self, "start");
+	self.connect("minigame_won", self, "won");
+	self.connect("minigame_failed", self, "failed");
+	self.connect("start_minigame", self, "start");
+	self.connect("bar_finished", self, "bar_end");
 
 func in_mini():
 	in_minigame = true;
@@ -24,11 +29,23 @@ func in_mini():
 func out_mini():
 	in_minigame = false;
 
-func print_start():
+func bar_start():
+	bar_running = true;
+
+func bar_end():
+	print("bar ended")
+	bar_running = false;
+
+func start():
+	bar_start()
 	print("minigame started")
 
-func print_won():
+func exit():
+	out_mini()
+	print("minigame exited")
+
+func won():
 	print("minigame won")
 
-func print_failed():
+func failed():
 	print("minigame failed")

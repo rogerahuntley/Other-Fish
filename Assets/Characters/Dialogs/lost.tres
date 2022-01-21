@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Resources/DialogBit.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+dialog = "!gator
+well i guess you lost
+sorry!"

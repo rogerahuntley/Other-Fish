@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Ocean Sunrise2.png-962b4f074b974dfeac8683ef896553d5.stex"
+path="res://.import/w.png-79ce99093379137157f4a261c127c983.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Backgrounds/Ocean Sunrise2.png"
-dest_files=[ "res://.import/Ocean Sunrise2.png-962b4f074b974dfeac8683ef896553d5.stex" ]
+source_file="res://Assets/Pixel/Controls/w.png"
+dest_files=[ "res://.import/w.png-79ce99093379137157f4a261c127c983.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

@@ -1,0 +1,187 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Scripts/Minigames/Select/Select.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Minigames/Select/arm1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Minigames/Select/arm2.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Pixel/arrow.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Minigames/Select/bandaid.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Minigames/Select/armbad.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Minigames/Select/arm3.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Pixel/Controls/a.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Pixel/Controls/d.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Pixel/Controls/z.png" type="Texture" id=10]
+[ext_resource path="res://Nodes/DebugEmit.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Assets/Minigames/Select/doc.png" type="Texture" id=12]
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends Sprite
+
+var wiggle_speed = 2;
+var wiggle_amt = .1;
+var rot = 2;
+
+func _process(delta):
+	rot += delta
+	rotation = sin(rot * wiggle_speed) * wiggle_amt;
+	pass
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Sprite
+
+var wiggle_speed = 5;
+var wiggle_amt = 5;
+var inital_pos = 0;
+var pos = 5;
+
+func _ready():
+	inital_pos = position.y
+
+func _process(delta):
+	pos += delta
+	position.y = inital_pos - sin(pos * wiggle_speed) * wiggle_amt;
+	pass
+"
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Sprite
+
+var wiggle_speed = 5;
+var wiggle_amt = 5;
+var inital_pos = 0;
+var pos = 5;
+
+func _ready():
+	inital_pos = position.x
+
+func _process(delta):
+	pos += delta
+	position.x = inital_pos + sin(pos * wiggle_speed) * wiggle_amt;
+	pass
+"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Sprite
+
+var wiggle_speed = 5;
+var wiggle_amt = 5;
+var inital_pos = 0;
+var pos = 5;
+
+func _ready():
+	inital_pos = position.x
+
+func _process(delta):
+	pos += delta
+	position.x = inital_pos - sin(pos * wiggle_speed) * wiggle_amt;
+	pass
+"
+
+[node name="Minigame" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -325.0
+margin_top = -225.0
+margin_right = 325.0
+margin_bottom = 225.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DebugEmit" parent="." instance=ExtResource( 11 )]
+pause_mode = 1
+emit = "start_minigame"
+
+[node name="Arm1" type="Sprite" parent="."]
+position = Vector2( 546, 369 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+
+[node name="Arm2" type="Sprite" parent="."]
+position = Vector2( 265, 361 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 3 )
+
+[node name="Arm3" type="Sprite" parent="."]
+position = Vector2( 109, 362 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 7 )
+
+[node name="Armbad" type="Sprite" parent="."]
+position = Vector2( 403, 363 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 6 )
+
+[node name="Doc" type="Sprite" parent="."]
+position = Vector2( 479, 175 )
+rotation = -0.29147
+scale = Vector2( 3, 3 )
+texture = ExtResource( 12 )
+
+[node name="Move" type="Node2D" parent="."]
+position = Vector2( 105, 71 )
+
+[node name="Bandaid" type="Sprite" parent="Move"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 5 )
+script = SubResource( 4 )
+
+[node name="Arrow" type="Sprite" parent="Move"]
+position = Vector2( -2, 131 )
+rotation = -3.14159
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+script = SubResource( 2 )
+
+[node name="Arrow2" type="Sprite" parent="Move"]
+position = Vector2( -186, -11 )
+rotation = -1.5708
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+script = SubResource( 1 )
+
+[node name="Arrow3" type="Sprite" parent="Move"]
+position = Vector2( 192, -8 )
+rotation = 1.5708
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+script = SubResource( 3 )
+
+[node name="A" type="Sprite" parent="Move"]
+position = Vector2( -123, -6 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 8 )
+
+[node name="D" type="Sprite" parent="Move"]
+position = Vector2( 125, -9 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 9 )
+
+[node name="Z" type="Sprite" parent="Move"]
+position = Vector2( 0, 76 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 10 )
+
+[node name="Pos1" type="Node2D" parent="."]
+position = Vector2( 105, 71 )
+
+[node name="Pos2" type="Node2D" parent="."]
+position = Vector2( 257, 71 )
+
+[node name="Pos3" type="Node2D" parent="."]
+position = Vector2( 411, 71 )
+
+[node name="Pos4" type="Node2D" parent="."]
+position = Vector2( 555, 71 )
+
+[node name="Tween" type="Tween" parent="."]

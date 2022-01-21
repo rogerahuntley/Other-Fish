@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/a.png-c07450219ce0bba47c2fc9c8dbb937c0.stex"
+path="res://.import/s.png-b202ac8cad16c4300b91755850d32817.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pixel/NoTouch/a.png"
-dest_files=[ "res://.import/a.png-c07450219ce0bba47c2fc9c8dbb937c0.stex" ]
+source_file="res://Assets/Pixel/Controls/s.png"
+dest_files=[ "res://.import/s.png-b202ac8cad16c4300b91755850d32817.stex" ]
 
 [params]
 

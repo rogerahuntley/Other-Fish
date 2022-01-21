@@ -10,7 +10,6 @@ var time = 5;
 
 func _ready():
 	Globals.connect("launch_minigame", self, "launch_minigame");
-	Globals.connect("bar_finished", self, "finish_minigame");
 	# make harder every time you win
 	Globals.connect("minigame_won", self, "shorten_time");
 	# lose a heart when you take an L
@@ -21,8 +20,12 @@ func shorten_time():
 
 func shorten_hearts():
 	hearts -= 1;
+	if hearts == 0:
+		Globals.emit_signal("no_hearts")
 
 func launch_minigame():
+	#make sure other minigame is closed
+	remove_minigame(minigame_node)
 	#lower curtain
 	minigame_node = select_minigame().instance();
 	add_child(minigame_node);
@@ -35,13 +38,10 @@ func launch_minigame():
 func fail():
 	Globals.emit_signal("minigame_failed");
 
-func finish_minigame():
-	minigame_node.finish();
-	tween.interpolate_callback(self, 5, "remove_minigame", minigame_node);
-	tween.start();
-
 func remove_minigame(node):
-	remove_child(node)
+	if node != null:
+		node.queue_free()
+		remove_child(node)
 
 func select_minigame():
 	return load(minigame_frame_path);

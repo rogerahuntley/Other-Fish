@@ -1,5 +1,6 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
+[ext_resource path="res://Assets/Characters/Dialogs/intro.tres" type="Resource" id=1]
 [ext_resource path="res://Assets/Pixel/podium.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Pixel/stage.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Pixel/curtain.png" type="Texture" id=4]
@@ -17,7 +18,7 @@
 [ext_resource path="res://Assets/WebFonts/ComicNeueAngular-Italic.woff" type="DynamicFontData" id=16]
 [ext_resource path="res://Assets/WebFonts/ComicNeueAngular-Bold.woff" type="DynamicFontData" id=17]
 [ext_resource path="res://Assets/WebFonts/ComicNeueAngular-BoldItalic.woff" type="DynamicFontData" id=18]
-[ext_resource path="res://Assets/Characters/Dialogs/intro.tres" type="Resource" id=19]
+[ext_resource path="res://Assets/Characters/Dialogs/lost.tres" type="Resource" id=19]
 [ext_resource path="res://Assets/Pixel/light.png" type="Texture" id=21]
 
 [sub_resource type="GDScript" id=2]
@@ -77,17 +78,6 @@ var wiggle_speed = 2;
 var wiggle_amt = .2;
 var rot = 0;
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	rot += delta
 	rotation.z = sin(rot * wiggle_speed) * wiggle_amt;
@@ -347,7 +337,8 @@ characters = {
 "octopus": ExtResource( 7 ),
 "seahorse": ExtResource( 13 )
 }
-first_dialog = ExtResource( 19 )
+first_dialog = ExtResource( 1 )
+lost_dialog = ExtResource( 19 )
 
 [node name="Name" type="Label" parent="DialogHandler"]
 margin_left = 154.0

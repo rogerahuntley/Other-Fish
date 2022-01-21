@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/z.png-83649faae3125cf4b52f3919275d7efe.stex"
+path="res://.import/weed.png-21ed086a88e660355a9e58751bc63ee7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pixel/NoTouch/z.png"
-dest_files=[ "res://.import/z.png-83649faae3125cf4b52f3919275d7efe.stex" ]
+source_file="res://Assets/Minigames/FlappyFish/weed.png"
+dest_files=[ "res://.import/weed.png-21ed086a88e660355a9e58751bc63ee7.stex" ]
 
 [params]
 

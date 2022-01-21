@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/d.png-964d022eaf157424113a50c28b5e2fc6.stex"
+path="res://.import/bandaid.png-fcb42ed04c1851b120fddf2e52899b54.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pixel/NoTouch/d.png"
-dest_files=[ "res://.import/d.png-964d022eaf157424113a50c28b5e2fc6.stex" ]
+source_file="res://Assets/Minigames/Select/bandaid.png"
+dest_files=[ "res://.import/bandaid.png-fcb42ed04c1851b120fddf2e52899b54.stex" ]
 
 [params]
 

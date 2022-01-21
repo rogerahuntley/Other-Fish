@@ -3,6 +3,7 @@ extends Node
 export (Dictionary) var characters
 
 export (Resource) var first_dialog
+export (Resource) var lost_dialog
 var next_dialog
 var dialog_data
 
@@ -12,12 +13,19 @@ var line_num = 0
 
 func _ready():
 	open_dialog(first_dialog)
-	Globals.connect("exit_minigame", self, "next");
+	Globals.connect("exit_minigame", self, "next")
+	Globals.connect("no_hearts", self, "no_hearts")
 	next()
-
+	
 func _input(event):
 	if event.is_action_pressed("ui_accept") && !Globals.in_minigame:
 		next()
+
+func hide_dialog():
+	self.visible = false
+
+func unhide_dialog():
+	self.visible = true
 
 func open_dialog(dialog):
 	dialog_data = dialog.dialog.split("\n")
@@ -52,7 +60,12 @@ func get_next_dialog():
 func end_game():
 	get_tree().quit();
 
+func no_hearts():
+	open_dialog(lost_dialog)
+
 func next():
+	unhide_dialog()
+	print("next")
 	var line = get_next_line()
 	if line.begins_with("!"):
 		#new char
@@ -61,6 +74,7 @@ func next():
 		next()
 	elif line.begins_with("$"):
 		Globals.emit_signal("launch_minigame");
+		hide_dialog()
 	elif line.begins_with("%"):
 		get_tree().quit();
 		

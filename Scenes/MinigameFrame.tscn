@@ -1,16 +1,49 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Assets/Pixel/background.png" type="Texture" id=1]
+[ext_resource path="res://Nodes/DebugEmit.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Minigames/HeartBar.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Pixel/fail.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/MinigameFrame.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Pixel/start.png" type="Texture" id=6]
 [ext_resource path="res://Assets/WebFonts/ComicNeueAngular-Bold.woff" type="DynamicFontData" id=7]
 [ext_resource path="res://Assets/Pixel/heart.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Pixel/won.png" type="Texture" id=9]
+
+[sub_resource type="Animation" id=4]
+resource_name = "fail"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fail:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -200, 272 ), Vector2( 400, 272 ), Vector2( 400, 272 ), Vector2( 1000, 272 ) ]
+}
 
 [sub_resource type="Animation" id=1]
 resource_name = "start"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Start:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -200, 272 ), Vector2( 400, 272 ), Vector2( 400, 272 ), Vector2( 1000, 272 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "won"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Won:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -50,37 +83,30 @@ func _process(delta):
 	pass
 "
 
-[sub_resource type="GDScript" id=4]
-script/source = "extends Button
-
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	if !OS.is_debug_build():
-		visible = false
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-func _pressed():
-	Globals.emit_signal(\"start_minigame\")
-"
+[sub_resource type="Animation" id=5]
+resource_name = "shake"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -400, 0 ), Vector2( 300, 0 ), Vector2( -150, 0 ), Vector2( 50, 0 ), Vector2( 0, 0 ) ]
+}
 
 [node name="MinigameFrame" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 0.000366211
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-minigames = [ "res://Scenes/Minigames/NoTouch/NoTouch.tscn" ]
+minigames = [ "res://Scenes/Minigames/Select/Select.tscn", "res://Scenes/Minigames/NoTouch/NoTouch.tscn", "res://Scenes/Minigames/FlappyFish/FlappyFish.tscn" ]
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchor_right = 1.0
@@ -118,8 +144,20 @@ position = Vector2( -200, 272 )
 scale = Vector2( 5.5, 5.125 )
 texture = ExtResource( 6 )
 
+[node name="Fail" type="Sprite" parent="."]
+position = Vector2( -200, 272 )
+scale = Vector2( 5.5, 5.125 )
+texture = ExtResource( 4 )
+
+[node name="Won" type="Sprite" parent="."]
+position = Vector2( -200, 272 )
+scale = Vector2( 5.5, 5.125 )
+texture = ExtResource( 9 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/fail = SubResource( 4 )
 anims/start = SubResource( 1 )
+anims/won = SubResource( 6 )
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -152,13 +190,10 @@ scale = Vector2( 0.9375, 0.9375 )
 texture = ExtResource( 8 )
 script = SubResource( 3 )
 
-[node name="Button" type="Button" parent="."]
-visible = false
-margin_left = 597.0
-margin_top = 525.0
-margin_right = 609.0
-margin_bottom = 545.0
-script = SubResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="DebugEmit" parent="." instance=ExtResource( 2 )]
+emit = "start_minigame"
+active = false
+
+[node name="Shake" type="AnimationPlayer" parent="."]
+playback_speed = 4.0
+anims/shake = SubResource( 5 )

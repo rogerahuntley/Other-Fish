@@ -1,39 +1,95 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Minigames/FlappyFish/FlappyFish.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Pixel/FlappyFish/octopus.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Pixel/FlappyFish/obstacle.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Minigames/FlappyFish/octopus.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Minigames/FlappyFish/Obstacle.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Minigames/FlappyFish/Octopus.gd" type="Script" id=4]
+[ext_resource path="res://Nodes/DebugEmit.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Minigames/FlappyFish/background.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Pixel/Controls/z.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Pixel/arrow.png" type="Texture" id=8]
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends TextureRect
+
+var wiggle_speed = 2;
+var wiggle_amt = 2;
+var rot = 0;
+
+func _process(delta):
+	rot += delta
+	rect_rotation = sin(rot * wiggle_speed) * wiggle_amt;
+	pass
+"
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
 export (float) var speed = 150
+var active = false
 
-func _process(delta):
-	position.x -= delta * speed
+func _ready():
+	Globals.connect(\"start_minigame\", self, \"set_active\")
+	
+func set_active():
+	active = true
+
+func _physics_process(delta):
+	if active:
+		position.x -= delta * speed
 "
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 45.25, 7.5 )
+
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 32.5, 64 )
+extents = Vector2( 1014.5, 10 )
 
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 31.5, 61 )
+[sub_resource type="GDScript" id=5]
+script/source = "extends Sprite
 
-[sub_resource type="CapsuleShape2D" id=3]
-radius = 9.5
-height = 69.0
+var wiggle_speed = 15;
+var wiggle_amt = 5;
+var inital_pos = 0;
+var pos = 0;
+
+func _ready():
+	inital_pos = position.y
+
+func _process(delta):
+	pos += delta
+	position.y = inital_pos + sin(pos * wiggle_speed) * wiggle_amt;
+	pass
+"
 
 [node name="Minigame" type="Control"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -325.0
+margin_left = -326.0
 margin_top = -225.0
-margin_right = 325.0
+margin_right = 324.0
 margin_bottom = 225.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -398.0
+margin_top = -287.0
+margin_right = 400.0
+margin_bottom = 439.0
+rect_pivot_offset = Vector2( 400, 300 )
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+script = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -45,93 +101,97 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="DebugEmit" parent="." instance=ExtResource( 5 )]
+emit = "start_minigame"
+
 [node name="Obstacles" type="Node2D" parent="."]
-position = Vector2( 22, -214 )
 script = SubResource( 1 )
 
-[node name="Obstacle" type="Sprite" parent="Obstacles"]
-position = Vector2( 243, 401 )
+[node name="Obstacle" parent="Obstacles" instance=ExtResource( 3 )]
+position = Vector2( 403, 387 )
+scale = Vector2( 4, 4 )
+
+[node name="Obstacle2" parent="Obstacles" instance=ExtResource( 3 )]
+position = Vector2( 691, 61 )
+rotation = 3.14159
+scale = Vector2( 4, 4 )
+
+[node name="Obstacle3" parent="Obstacles" instance=ExtResource( 3 )]
+position = Vector2( 770, 465 )
+scale = Vector2( 4, 4 )
+
+[node name="Obstacle4" parent="Obstacles" instance=ExtResource( 3 )]
+position = Vector2( 1094, 478 )
+scale = Vector2( 4, 4 )
+
+[node name="Obstacle5" parent="Obstacles" instance=ExtResource( 3 )]
+position = Vector2( 1236, 58 )
+rotation = 3.14159
+scale = Vector2( 4, 4 )
+
+[node name="Obstacle6" parent="Obstacles" instance=ExtResource( 3 )]
+position = Vector2( 1498, 490 )
+scale = Vector2( 4, 4 )
+
+[node name="Obstacle9" parent="Obstacles" instance=ExtResource( 3 )]
+position = Vector2( 1926, 451 )
+scale = Vector2( 4, 4 )
+
+[node name="Obstacle7" parent="Obstacles" instance=ExtResource( 3 )]
+position = Vector2( 1610, 63 )
+rotation = 3.14159
+scale = Vector2( 4, 4 )
+
+[node name="Obstacle8" parent="Obstacles" instance=ExtResource( 3 )]
+position = Vector2( 1927, 22 )
+rotation = 3.14159
+scale = Vector2( 4, 4 )
+
+[node name="Octopus" type="KinematicBody2D" parent="."]
+position = Vector2( 154, 212 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 3 )
-
-[node name="StaticBody2D" type="Area2D" parent="Obstacles/Obstacle"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle/StaticBody2D"]
-position = Vector2( -0.75, 0.5 )
-scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 4 )
-
-[node name="Obstacle2" type="Sprite" parent="Obstacles"]
-position = Vector2( 466, 51 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 3 )
-
-[node name="StaticBody2D" type="Area2D" parent="Obstacles/Obstacle2"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle2/StaticBody2D"]
-position = Vector2( -0.5, 0 )
-scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 4 )
-
-[node name="Obstacle3" type="Sprite" parent="Obstacles"]
-position = Vector2( 618, 419 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 3 )
-
-[node name="StaticBody2D" type="Area2D" parent="Obstacles/Obstacle3"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle3/StaticBody2D"]
-position = Vector2( -0.5, 0 )
-scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 4 )
-
-[node name="Obstacle4" type="Sprite" parent="Obstacles"]
-position = Vector2( 848, 418 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 3 )
-
-[node name="StaticBody2D" type="Area2D" parent="Obstacles/Obstacle4"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle4/StaticBody2D"]
-position = Vector2( 0.75, -0.5 )
-scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 5 )
-
-[node name="Obstacle5" type="Sprite" parent="Obstacles"]
-position = Vector2( 847, 341 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 3 )
-
-[node name="StaticBody2D" type="Area2D" parent="Obstacles/Obstacle5"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle5/StaticBody2D"]
-position = Vector2( -0.5, 0 )
-scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 4 )
-
-[node name="Obstacle6" type="Sprite" parent="Obstacles"]
-position = Vector2( -209, 182 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 3 )
-offset = Vector2( 696.5, -78.5 )
-
-[node name="StaticBody2D" type="Area2D" parent="Obstacles/Obstacle6"]
-position = Vector2( 696.5, -77.5 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacles/Obstacle6/StaticBody2D"]
-position = Vector2( -0.5, 0 )
-scale = Vector2( 0.5, 0.5 )
-shape = SubResource( 4 )
-
-[node name="Octopus" type="Sprite" parent="."]
-position = Vector2( 95, 197 )
-scale = Vector2( 2, 2 )
-texture = ExtResource( 2 )
 script = ExtResource( 4 )
 
-[node name="RigidBody2D" type="KinematicBody2D" parent="Octopus"]
+[node name="OctopusSprite" type="Sprite" parent="Octopus"]
+texture = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Octopus/RigidBody2D"]
-position = Vector2( 2.5, -1 )
-rotation = 1.5708
-shape = SubResource( 3 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Octopus"]
+position = Vector2( -0.75, -1 )
+shape = SubResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="Octopus"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Octopus/Area2D"]
+position = Vector2( -0.75, -1 )
+shape = SubResource( 2 )
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Wall" type="Node2D" parent="Walls"]
+position = Vector2( 215, -15 )
+
+[node name="Area2D" type="Area2D" parent="Walls/Wall"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall/Area2D"]
+position = Vector2( 1004.5, 0 )
+shape = SubResource( 4 )
+
+[node name="Wall2" type="Node2D" parent="Walls"]
+position = Vector2( 211, 461 )
+
+[node name="Area2D" type="Area2D" parent="Walls/Wall2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall2/Area2D"]
+position = Vector2( 1004.5, 0 )
+shape = SubResource( 4 )
+
+[node name="Z" type="Sprite" parent="."]
+position = Vector2( 55, 53 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 7 )
+
+[node name="Arrow" type="Sprite" parent="."]
+position = Vector2( 138, 52 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 8 )
+script = SubResource( 5 )

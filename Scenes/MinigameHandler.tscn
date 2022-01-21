@@ -1,29 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/MinigameHandler.gd" type="Script" id=1]
-
-[sub_resource type="GDScript" id=1]
-script/source = "extends Button
-
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	if !OS.is_debug_build():
-		visible = false
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-func _pressed():
-	Globals.emit_signal(\"launch_minigame\")
-"
+[ext_resource path="res://Nodes/DebugEmit.tscn" type="PackedScene" id=2]
 
 [node name="MinigameHandler" type="Control"]
 anchor_right = 1.0
@@ -36,10 +14,5 @@ minigame_frame_path = "res://Scenes/MinigameFrame.tscn"
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="Button" type="Button" parent="."]
-visible = false
-margin_left = 597.0
-margin_top = 525.0
-margin_right = 609.0
-margin_bottom = 545.0
-script = SubResource( 1 )
+[node name="DebugEmit" parent="." instance=ExtResource( 2 )]
+emit = "launch_minigame"
