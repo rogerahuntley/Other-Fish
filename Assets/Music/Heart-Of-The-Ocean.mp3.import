@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Heart-Of-The-Ocean.mp3-fdbb32441f8a0104755b636e1d6f07ae.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/Heart-Of-The-Ocean.mp3"
+dest_files=[ "res://.import/Heart-Of-The-Ocean.mp3-fdbb32441f8a0104755b636e1d6f07ae.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -20,7 +20,7 @@ var wiggle_speed = 2;
 var wiggle_amt = .1;
 var rot = 2;
 
-func _process(delta):
+func _physics_process(delta):
 	rot += delta
 	rotation = sin(rot * wiggle_speed) * wiggle_amt;
 	pass
@@ -37,7 +37,7 @@ var pos = 5;
 func _ready():
 	inital_pos = position.y
 
-func _process(delta):
+func _physics_process(delta):
 	pos += delta
 	position.y = inital_pos - sin(pos * wiggle_speed) * wiggle_amt;
 	pass
@@ -54,7 +54,7 @@ var pos = 5;
 func _ready():
 	inital_pos = position.x
 
-func _process(delta):
+func _physics_process(delta):
 	pos += delta
 	position.x = inital_pos + sin(pos * wiggle_speed) * wiggle_amt;
 	pass
@@ -71,7 +71,7 @@ var pos = 5;
 func _ready():
 	inital_pos = position.x
 
-func _process(delta):
+func _physics_process(delta):
 	pos += delta
 	position.x = inital_pos - sin(pos * wiggle_speed) * wiggle_amt;
 	pass

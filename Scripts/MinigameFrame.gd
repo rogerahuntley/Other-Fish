@@ -12,6 +12,7 @@ onready var animation_player = get_node("AnimationPlayer")
 onready var shake_player = get_node("Shake")
 
 onready var viewport_node = get_node("ViewportContainer/Viewport")
+var rng = RandomNumberGenerator.new()
 
 var intro_time = .5;
 var start_buffer = 1;
@@ -64,8 +65,8 @@ func won():
 	
 func select_mini_game():
 	# returns a random scene object from minigames array
-	randomize()
-	var num = round(rand_range(0, minigames.size()-1))
+	rng.randomize()
+	var num = rng.randi_range(0,minigames.size()-1)
 	return load(minigames[num]);
 
 func close():

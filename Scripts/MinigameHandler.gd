@@ -1,6 +1,7 @@
 extends Control
 
 onready var tween = get_node("Tween");
+var rng = RandomNumberGenerator.new()
 
 export (String, FILE) var minigame_frame_path;
 var minigame_node;

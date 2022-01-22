@@ -2,7 +2,6 @@
 
 [ext_resource path="res://Scripts/Minigames/NoTouch/NoTouch.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Pixel/controls.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Pixel/octopus.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Pixel/action.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Pixel/Controls/z_dark.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Pixel/Controls/a_dark.png" type="Texture" id=6]
@@ -11,6 +10,9 @@
 [ext_resource path="res://Assets/Pixel/Controls/w_dark.png" type="Texture" id=9]
 [ext_resource path="res://Assets/Minigames/NoTouch/warning.png" type="Texture" id=10]
 [ext_resource path="res://Nodes/DebugEmit.tscn" type="PackedScene" id=11]
+
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/octopus.png-b387ce61f93e27f916c23544b1d102e9.stex"
 
 [node name="Minigame" type="Control"]
 anchor_left = 0.5
@@ -74,7 +76,7 @@ texture = ExtResource( 9 )
 [node name="Octopus" type="Sprite" parent="."]
 position = Vector2( 321, 206 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 3 )
+texture = SubResource( 1 )
 
 [node name="Warning" type="Sprite" parent="."]
 position = Vector2( 326, 349 )

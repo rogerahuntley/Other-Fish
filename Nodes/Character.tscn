@@ -1,6 +1,40 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Character.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Characters/Gator.tres" type="Resource" id=2]
+[ext_resource path="res://Assets/Pixel/3D/shadow.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Pixel/3D/light.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Pixel/3D/podium.png" type="Texture" id=5]
 
-[node name="Character" type="Sprite3D"]
+[sub_resource type="StreamTexture" id=1]
+resource_local_to_scene = true
+flags = 5
+load_path = "res://.import/gator.png-d297fcffb1629eeed693f4950ea10254.s3tc.stex"
+
+[node name="Character" type="Spatial"]
 script = ExtResource( 1 )
+chara = ExtResource( 2 )
+
+[node name="Shadow" type="Sprite3D" parent="."]
+transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 50, 0, 0, -40 )
+use_in_baked_light = true
+generate_lightmap = false
+opacity = 0.17
+alpha_cut = 2
+texture = ExtResource( 3 )
+
+[node name="Light" type="Sprite3D" parent="."]
+transform = Transform( 30, 0, 0, 0, 30, 0, 0, 0, 30, 0, 65.4481, -39.99 )
+alpha_cut = 2
+texture = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite3D" parent="."]
+transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 0, 0, -38.9742 )
+generate_lightmap = false
+flip_h = true
+texture = SubResource( 1 )
+
+[node name="Podium" type="Sprite3D" parent="."]
+transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 1, 0, -15.3153, -38.559 )
+alpha_cut = 2
+texture = ExtResource( 5 )

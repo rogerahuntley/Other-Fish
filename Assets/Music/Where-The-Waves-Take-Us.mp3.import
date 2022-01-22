@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Where-The-Waves-Take-Us.mp3-20971d972252c4bff7a55f79fe6b5a39.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/Where-The-Waves-Take-Us.mp3"
+dest_files=[ "res://.import/Where-The-Waves-Take-Us.mp3-20971d972252c4bff7a55f79fe6b5a39.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

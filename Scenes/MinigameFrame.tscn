@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Assets/Pixel/background.png" type="Texture" id=1]
 [ext_resource path="res://Nodes/DebugEmit.tscn" type="PackedScene" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://Assets/WebFonts/ComicNeueAngular-Bold.woff" type="DynamicFontData" id=7]
 [ext_resource path="res://Assets/Pixel/heart.png" type="Texture" id=8]
 [ext_resource path="res://Assets/Pixel/won.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Audio/fail.mp3" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Audio/start.mp3" type="AudioStream" id=11]
+[ext_resource path="res://Assets/Audio/win.mp3" type="AudioStream" id=12]
 
 [sub_resource type="Animation" id=4]
 resource_name = "fail"
@@ -23,6 +26,24 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( -200, 272 ), Vector2( 400, 272 ), Vector2( 400, 272 ), Vector2( 1000, 272 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 10 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": null
+} ],
+"times": PoolRealArray( 0.4, 1 )
 }
 
 [sub_resource type="Animation" id=1]
@@ -39,6 +60,24 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( -200, 272 ), Vector2( 400, 272 ), Vector2( 400, 272 ), Vector2( 1000, 272 ) ]
 }
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 11 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": null
+} ],
+"times": PoolRealArray( 0.3, 0.9 )
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "won"
@@ -54,6 +93,24 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( -200, 272 ), Vector2( 400, 272 ), Vector2( 400, 272 ), Vector2( 1000, 272 ) ]
 }
+tracks/1/type = "audio"
+tracks/1/path = NodePath("AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 12 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": null
+} ],
+"times": PoolRealArray( 0.3, 0.8 )
+}
 
 [sub_resource type="DynamicFont" id=2]
 size = 68
@@ -66,18 +123,12 @@ var wiggle_speed = 2;
 var wiggle_amt = .2;
 var rot = 0;
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	rot += delta
 	rotation = sin(rot * wiggle_speed) * wiggle_amt;
 	pass
@@ -197,3 +248,6 @@ active = false
 [node name="Shake" type="AnimationPlayer" parent="."]
 playback_speed = 4.0
 anims/shake = SubResource( 5 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )

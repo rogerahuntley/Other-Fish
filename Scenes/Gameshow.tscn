@@ -1,16 +1,16 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Assets/Characters/Dialogs/intro.tres" type="Resource" id=1]
-[ext_resource path="res://Assets/Pixel/podium.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Pixel/stage.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Pixel/curtain.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Pixel/3D/podium.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Pixel/3D/stage.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Pixel/3D/curtain.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Characters/Gator.tres" type="Resource" id=5]
-[ext_resource path="res://Assets/Pixel/seahorse.png" type="Texture" id=6]
+[ext_resource path="res://Nodes/Character.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Assets/Characters/Octopus.tres" type="Resource" id=7]
 [ext_resource path="res://Assets/Characters/Fish.tres" type="Resource" id=8]
-[ext_resource path="res://Assets/Pixel/shadow.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Pixel/3D/seahorse.png" type="Texture" id=9]
 [ext_resource path="res://Scenes/MinigameHandler.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scripts/Character.gd" type="Script" id=11]
+[ext_resource path="res://Assets/Pixel/3D/octopus.png" type="Texture" id=11]
 [ext_resource path="res://Scripts/DialogHandler.gd" type="Script" id=12]
 [ext_resource path="res://Assets/Characters/Seahorse.tres" type="Resource" id=13]
 [ext_resource path="res://Assets/WebFonts/NameFont.tres" type="DynamicFont" id=14]
@@ -19,7 +19,10 @@
 [ext_resource path="res://Assets/WebFonts/ComicNeueAngular-Bold.woff" type="DynamicFontData" id=17]
 [ext_resource path="res://Assets/WebFonts/ComicNeueAngular-BoldItalic.woff" type="DynamicFontData" id=18]
 [ext_resource path="res://Assets/Characters/Dialogs/lost.tres" type="Resource" id=19]
-[ext_resource path="res://Assets/Pixel/light.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Pixel/3D/gator.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Pixel/3D/fish.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Pixel/3D/heart.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Music/Heart-Of-The-Ocean.mp3" type="AudioStream" id=23]
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends Camera
@@ -55,7 +58,7 @@ func slide(character, _t):
 	tween.start();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func __physics_process(delta):
 	camera_wigg(delta);
 	pass
 
@@ -67,10 +70,6 @@ func camera_wigg(delta):
 	pass
 "
 
-[sub_resource type="StreamTexture" id=14]
-flags = 3
-load_path = "res://.import/heart.png-ce026094e16e7966872b46a3eb6e7788.s3tc.stex"
-
 [sub_resource type="GDScript" id=1]
 script/source = "extends Sprite3D
 
@@ -78,27 +77,11 @@ var wiggle_speed = 2;
 var wiggle_amt = .2;
 var rot = 0;
 
-func _process(delta):
+func _physics_process(delta):
 	rot += delta
 	rotation.z = sin(rot * wiggle_speed) * wiggle_amt;
 	pass
 "
-
-[sub_resource type="StreamTexture" id=3]
-flags = 7
-load_path = "res://.import/gator.png-d297fcffb1629eeed693f4950ea10254.s3tc.stex"
-
-[sub_resource type="StreamTexture" id=4]
-flags = 3
-load_path = "res://.import/octopus.png-cb86631700a9737130a891d8217807cb.s3tc.stex"
-
-[sub_resource type="StreamTexture" id=5]
-flags = 3
-load_path = "res://.import/fish.png-89fc1c4f0a54506038a9e5a59c7f351e.s3tc.stex"
-
-[sub_resource type="StreamTexture" id=6]
-flags = 3
-load_path = "res://.import/seahorse.png-26eed7d6423a72cad34c1efb8d9b2c0e.s3tc.stex"
 
 [sub_resource type="GDScript" id=12]
 script/source = "extends Label
@@ -121,9 +104,9 @@ func _ready():
 	Globals.connect(\"character_talking\", self, \"change_texture\");
 
 func change_texture(character, _t):
-	texture = character.img
+	texture = character.dialog_img
 
-func _process(delta):
+func _physics_process(delta):
 	rot += delta
 	rect_rotation = sin(rot * wiggle_speed) * wiggle_amt;
 	pass
@@ -151,14 +134,10 @@ func change_text(_c, sentence):
 	text = sentence
 "
 
-[node name="Main" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Main" type="Spatial"]
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
+light_mask = 0
 margin_right = 800.0
 margin_bottom = 600.0
 __meta__ = {
@@ -167,6 +146,7 @@ __meta__ = {
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
 size = Vector2( 800, 600 )
+transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
 
@@ -202,16 +182,12 @@ texture = ExtResource( 4 )
 [node name="Heart" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial"]
 transform = Transform( 75, 0, 0, 0, 75, 0, 0, 0, 75, 5.97116, 46.9652, -50.1604 )
 alpha_cut = 2
-texture = SubResource( 14 )
+texture = ExtResource( 22 )
 script = SubResource( 1 )
 
 [node name="Node" type="Spatial" parent="ViewportContainer/Viewport/Gameshow/Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.1666 )
-
-[node name="Podium" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Node"]
-transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, -41.0717, 19.086, -36.2096 )
-alpha_cut = 2
-texture = ExtResource( 2 )
+visible = false
 
 [node name="Podium2" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Node"]
 transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 39.4665, 19.086, -36.2115 )
@@ -228,95 +204,43 @@ transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 87.7944, 19.086, -36.2257 )
 alpha_cut = 2
 texture = ExtResource( 2 )
 
+[node name="Podium" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Node"]
+transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, -41.0717, 19.086, -36.2096 )
+alpha_cut = 2
+texture = ExtResource( 2 )
+
 [node name="Characters" type="Spatial" parent="ViewportContainer/Viewport/Gameshow/Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.1281, 0.155919 )
 
-[node name="Spatial" type="Spatial" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters"]
+[node name="Gator" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50.9717, 17.6495, 0 )
 
-[node name="Gator" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial"]
-transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, -49.613, 19.086, -36.2096 )
-generate_lightmap = false
-flip_h = true
-alpha_cut = 2
-texture = SubResource( 3 )
-script = ExtResource( 11 )
-chara = ExtResource( 5 )
+[node name="Sprite" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Gator" index="2"]
+texture = ExtResource( 20 )
 
-[node name="Gatorsh" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial"]
-transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 50, -52.743, 27.702, -40 )
-alpha_cut = 2
-texture = ExtResource( 9 )
-
-[node name="Gatorsh2" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial"]
-transform = Transform( 30, 0, 0, 0, 30, 0, 0, 0, 30, -52.7434, 85.3384, -39.99 )
-alpha_cut = 2
-texture = ExtResource( 21 )
-
-[node name="Spatial2" type="Spatial" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 36.8144, 9.53674e-06, -0.00190735 )
-
-[node name="Octopus" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial2"]
-transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 7.19065, 19.086, -36.2096 )
-cast_shadow = 0
-generate_lightmap = false
-alpha_cut = 2
-texture = SubResource( 4 )
-script = ExtResource( 11 )
+[node name="Octopus" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 43.6294, 17.6495, 0 )
 chara = ExtResource( 7 )
+flip = true
 
-[node name="Octopussh" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial2"]
-transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 50, 8.11171, 27.7023, -40 )
-alpha_cut = 2
-texture = ExtResource( 9 )
+[node name="Sprite" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Octopus" index="2"]
+texture = ExtResource( 11 )
 
-[node name="Octopussh2" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial2"]
-transform = Transform( 30, 0, 0, 0, 30, 0, 0, 0, 30, 8.11171, 85.3384, -39.99 )
-alpha_cut = 2
-texture = ExtResource( 21 )
-
-[node name="Spatial3" type="Spatial" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 41.4876, 9.53674e-06, -0.00190735 )
-
-[node name="fish" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial3"]
-transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 32.4172, 19.086, -36.1986 )
-cast_shadow = 0
-generate_lightmap = false
-alpha_cut = 2
-texture = SubResource( 5 )
-script = ExtResource( 11 )
+[node name="Fish" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 71.2278, 17.6495, 0 )
 chara = ExtResource( 8 )
+flip = true
 
-[node name="fishsh" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial3"]
-transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 50, 32.2916, 27.7023, -40 )
-alpha_cut = 2
-texture = ExtResource( 9 )
-
-[node name="fishsh2" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial3"]
-transform = Transform( 30, 0, 0, 0, 30, 0, 0, 0, 30, 32.2916, 85.3384, -39.99 )
-alpha_cut = 2
+[node name="Sprite" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Fish" index="2"]
 texture = ExtResource( 21 )
 
-[node name="Spatial4" type="Spatial" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 46.949, 9.53674e-06, -0.00190735 )
-
-[node name="seahorse" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial4"]
-transform = Transform( 25, 0, 0, 0, 25, 0, 0, 0, 25, 52.7903, 19.0859, -36.2238 )
-cast_shadow = 0
-generate_lightmap = false
-alpha_cut = 2
-texture = SubResource( 6 )
-script = ExtResource( 11 )
+[node name="Seahorse" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 99.5764, 17.6495, 0 )
 chara = ExtResource( 13 )
+flip = true
 
-[node name="seahorsesh" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial4"]
-transform = Transform( 50, 0, 0, 0, 100, 0, 0, 0, 50, 56.4003, 27.7023, -40 )
-alpha_cut = 2
+[node name="Sprite" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Seahorse" index="2"]
 texture = ExtResource( 9 )
-
-[node name="seahorsesh2" type="Sprite3D" parent="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Spatial4"]
-transform = Transform( 30, 0, 0, 0, 30, 0, 0, 0, 30, 56.4003, 85.3384, -39.99 )
-alpha_cut = 2
-texture = ExtResource( 21 )
 
 [node name="DialogHandler" type="Control" parent="."]
 light_mask = 0
@@ -346,7 +270,6 @@ margin_top = 5.0
 margin_right = 216.0
 margin_bottom = 19.0
 custom_fonts/font = ExtResource( 14 )
-text = "Dorse the Seahorse"
 script = SubResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -360,7 +283,6 @@ margin_top = -91.5
 margin_right = 138.0
 margin_bottom = 36.5
 rect_scale = Vector2( 1.3, 1.3 )
-texture = ExtResource( 6 )
 flip_h = true
 script = SubResource( 11 )
 __meta__ = {
@@ -379,10 +301,19 @@ custom_fonts/bold_italics_font = SubResource( 7 )
 custom_fonts/italics_font = SubResource( 8 )
 custom_fonts/bold_font = SubResource( 9 )
 custom_fonts/normal_font = SubResource( 10 )
-text = "when I was a youngin i ate too many pickles for breakfast"
 script = SubResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MinigameHandler" parent="." instance=ExtResource( 10 )]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 23 )
+autoplay = true
+bus = "Game Music"
+
+[editable path="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Gator"]
+[editable path="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Octopus"]
+[editable path="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Fish"]
+[editable path="ViewportContainer/Viewport/Gameshow/Spatial/Characters/Seahorse"]

@@ -20,7 +20,6 @@ func _ready():
 	self.connect("start_minigame", self, "start");
 	self.connect("minigame_won", self, "won");
 	self.connect("minigame_failed", self, "failed");
-	self.connect("start_minigame", self, "start");
 	self.connect("bar_finished", self, "bar_end");
 
 func in_mini():
