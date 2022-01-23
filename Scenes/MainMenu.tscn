@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Assets/Pixel/menu.png" type="Texture" id=1]
 [ext_resource path="res://Assets/WebFonts/ComicNeue-Bold.woff" type="DynamicFontData" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://Assets/Pixel/press.png" type="Texture" id=10]
 [ext_resource path="res://Assets/Pixel/to.png" type="Texture" id=11]
 [ext_resource path="res://Assets/Pixel/Controls/z.png" type="Texture" id=12]
+[ext_resource path="res://Assets/treeson.png" type="Texture" id=13]
+[ext_resource path="res://Assets/GWJ-41-Theme Ocean.png" type="Texture" id=14]
 
 [sub_resource type="GDScript" id=3]
 script/source = "extends TextureButton
@@ -50,7 +52,7 @@ font_data = ExtResource( 7 )
 [sub_resource type="GDScript" id=4]
 script/source = "extends Button
 
-onready var credits = get_node(\"../Credits\")
+onready var credits = get_node(\"../JamTheme\")
 
 func _pressed():
 	credits.visible = !credits.visible
@@ -219,12 +221,42 @@ https://creativecommons.org/licenses/by-sa/3.0/
 
 "
 
+[node name="JamTheme" type="Control" parent="."]
+visible = false
+margin_right = 504.0
+margin_bottom = 321.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Treeson" type="Sprite" parent="JamTheme"]
+position = Vector2( 547, 296 )
+scale = Vector2( 0.187855, 0.187855 )
+texture = ExtResource( 13 )
+
+[node name="Gwj-41-ThemeOcean" type="Sprite" parent="JamTheme"]
+position = Vector2( 288, 306 )
+scale = Vector2( 0.44, 0.44 )
+texture = ExtResource( 14 )
+
 [node name="Button2" type="Button" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -126.0
 margin_bottom = 36.0
 text = "credits"
+script = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Button" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -126.0
+margin_top = 40.0
+margin_bottom = 76.0
+text = "jam theme"
 script = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false

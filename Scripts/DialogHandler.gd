@@ -57,9 +57,6 @@ func get_next_dialog():
 	else:
 		return null;
 
-func end_game():
-	get_tree().quit();
-
 func no_hearts():
 	open_dialog(lost_dialog)
 
@@ -76,7 +73,7 @@ func next():
 		Globals.emit_signal("launch_minigame");
 		hide_dialog()
 	elif line.begins_with("%"):
-		get_tree().quit();
+		Globals.emit_signal("end_game")
 		
 	# not a new signal, so send dialog
 	else:

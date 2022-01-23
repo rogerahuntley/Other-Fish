@@ -9,6 +9,7 @@ signal bar_finished()
 signal minigame_closed()
 signal no_hearts()
 signal bar_stop()
+signal end_game()
 signal character_talking(character, sentence)
 
 var in_minigame = false;
@@ -21,6 +22,7 @@ func _ready():
 	self.connect("minigame_won", self, "won");
 	self.connect("minigame_failed", self, "failed");
 	self.connect("bar_finished", self, "bar_end");
+	self.connect("end_game", self, "end_game");
 
 func in_mini():
 	in_minigame = true;
@@ -48,3 +50,6 @@ func won():
 
 func failed():
 	print("minigame failed")
+
+func end_game():
+	get_tree().change_scene("res://Scenes/MainMenu.tscn")
